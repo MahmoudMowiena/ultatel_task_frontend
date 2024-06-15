@@ -1,0 +1,44 @@
+<div>
+    <form [formGroup]="registerForm" (ngSubmit)="register(registerForm)">
+
+        <input id="email" type="text" formControlName="email" placeholder="Email">
+        <div *ngIf="registerForm.get('email')?.errors && registerForm.get('email')?.touched">
+            <p *ngIf="registerForm.get('email')?.getError('required') && registerForm.get('email')?.touched">email is
+                required</p>
+            <p *ngIf="registerForm.get('email')?.getError('email')"> email is invalid</p>
+        </div>
+
+        <input id="password" type="password" formControlName="password" placeholder="Password">
+        <div *ngIf="registerForm.get('password')?.errors && registerForm.get('password')?.touched">
+            <p *ngIf="registerForm.get('password')?.getError('required') && registerForm.get('password')?.touched">
+                password is required</p>
+            <p *ngIf="registerForm.get('password')?.getError('pattern') && registerForm.get('password')?.touched">
+                password pattern is invalid</p>
+        </div>
+
+        <input id="confirmPassword" type="password" formControlName="confirmPassword" placeholder="Confirm Password">
+        <div *ngIf="registerForm.get('confirmPassword')?.errors && registerForm.get('confirmPassword')?.touched">
+            <p *ngIf="registerForm.get('confirmPassword')?.getError('required')">password
+                confirmation is required</p>
+            <p *ngIf="registerForm.get('confirmPassword')?.getError('pattern')"> password
+                confirmation pattern is invalid</p>
+            <p *ngIf="registerForm.get('confirmPassword') != registerForm.get('password')">
+                password does not match</p>
+        </div>
+
+        <input id="firstName" type="text" formControlName="firstName" placeholder="First Name">
+        <div *ngIf="registerForm.get('firstName')?.errors && registerForm.get('firstName')?.touched">
+            <p *ngIf="registerForm.get('firstName')?.getError('required') && registerForm.get('firstName')?.touched">
+                First name is required</p>
+        </div>
+
+        <input id="lastName" type="text" formControlName="lastName" placeholder="Last Name">
+        <div *ngIf="registerForm.get('lastName')?.errors && registerForm.get('lastName')?.touched">
+            <p *ngIf="registerForm.get('lastName')?.getError('required') && registerForm.get('lastName')?.touched">
+                Last name is required</p>
+        </div>
+
+        <input type="submit" value="Register" />
+    </form>
+    <a routerLink="/login">Having an account already? Login here</a>
+</div>

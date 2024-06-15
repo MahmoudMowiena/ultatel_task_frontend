@@ -1,0 +1,17 @@
+<div>
+<form [formGroup]="loginForm" (ngSubmit)="login(loginForm)">
+    <input id="username" type="text" formControlName="userName" placeholder="Username">
+    <div *ngIf="loginForm.get('userName')?.errors && loginForm.get('userName')?.touched">
+        <p *ngIf="loginForm.get('userName')?.getError('required') && loginForm.get('userName')?.touched">name is required</p>
+    </div>
+
+    <input id="password" type="password" formControlName="password" placeholder="Password">
+    <div *ngIf="loginForm.get('password')?.errors && loginForm.get('password')?.touched">
+        <p *ngIf="loginForm.get('password')?.getError('required') && loginForm.get('password')?.touched">password is required</p>
+        <p *ngIf="loginForm.get('password')?.getError('pattern') && loginForm.get('password')?.touched"> password pattern is invalid</p>
+    </div>
+    
+    <input type="submit" value="Login" />
+</form>
+<a routerLink="/register">New customer? Signup here</a>
+</div>
