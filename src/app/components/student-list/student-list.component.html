@@ -1,0 +1,32 @@
+<table>
+    <thead>
+        <tr>
+            <th>Edit</th>
+            <th>Student Name</th>
+            <th>Age</th>
+            <th>Gender</th>
+            <th>Email</th>
+            <th>Country</th>
+            <th>Delete</th>
+        </tr>
+    </thead>
+    <tbody>
+        @for (student of students; track student.id) {
+            <tr>
+                <td>
+                    <button (click)="editStudent(student)">edit</button>
+                </td>
+                <td>{{student.firstName + ' ' + student.lastName}}</td>
+                <td>{{student.age}}</td>
+                <td>{{student.gender}}</td>
+                <td>{{student.email}}</td>
+                <td>{{student.country}}</td>
+                <td>
+                    <button (click)="deleteStudent(student.id)">delete</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<button (click)="addStudent()">Add Student</button>

@@ -1,0 +1,31 @@
+<nav>
+    <div>
+        <a routerLink="/home">
+            <img width="100" src="" alt="Your Logo">
+        </a>
+
+        <div id="navbarNav">
+            <ul>
+                <li>
+                    <a aria-current="page" routerLink="/home" routerLinkActive="active">Home</a>
+                </li>
+
+                <li *ngIf="!authService.isLoggedIn">
+                    <a aria-current="page" routerLink="/login" routerLinkActive="active">Log in | Register</a>
+                </li>
+
+                <!-- <li *ngIf="authService.isLoggedIn">
+                    <a aria-current="page" routerLink="/admin" routerLinkActive="active">Admin</a>
+                </li> -->
+
+                <li *ngIf="authService.isLoggedIn">
+                    <a aria-current="page" routerLink="/profile" routerLinkActive="active">Profile</a>
+                </li>
+
+                <li *ngIf="authService.isLoggedIn">
+                    <a aria-current="page" (click)="logout()">Log out</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>
