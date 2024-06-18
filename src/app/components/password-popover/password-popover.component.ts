@@ -17,19 +17,19 @@ export class PasswordPopoverComponent implements OnChanges {
   hasNumber: boolean = false;
   hasSpecialChar: boolean = false;
   isPasswordValid: boolean = false;
+  passwordStrength: string = 'very weak';
 
   ngOnChanges(changes: SimpleChanges): void {
     this.checkPasswordStrength();
   }
 
   checkPasswordStrength(): void {
-    if(this.password) {    
-    this.hasUpperCase = /[A-Z]/.test(this.password);
-    this.hasLowerCase = /[a-z]/.test(this.password);
-    this.hasNumber = /\d/.test(this.password);
-    this.hasSpecialChar = /[!@#$%^&*()\[\]{}\\|;:'",<.>/?`~]/.test(this.password);
-
-    this.isPasswordValid = this.hasUpperCase && this.hasLowerCase && this.hasNumber && this.hasSpecialChar;
+    if (this.password) {
+      this.hasUpperCase = /[A-Z]/.test(this.password);
+      this.hasLowerCase = /[a-z]/.test(this.password);
+      this.hasNumber = /\d/.test(this.password);
+      this.hasSpecialChar = /[!@#$%^&*()\[\]{}\\|;:'",<.>/?`~]/.test(this.password);
+      this.isPasswordValid = this.hasUpperCase && this.hasLowerCase && this.hasNumber && this.hasSpecialChar;
     } else {
       this.hasUpperCase = false;
       this.hasLowerCase = false;
@@ -37,5 +37,22 @@ export class PasswordPopoverComponent implements OnChanges {
       this.hasSpecialChar = false;
       this.isPasswordValid = false;
     }
+
+    const score: number = this.checkPasswordScore();
+
+    if (score === 4) this.passwordStrength = "Strong";
+    else if (score === 2 || score === 3) this.passwordStrength = "Medium";
+    else if (score === 1) this.passwordStrength = "Weak";
+    else this.passwordStrength = "Very Weak";
+  }
+
+  checkPasswordScore(): number {
+    let score = 0;
+    if(this.hasNumber) ++score;
+    if(this.hasUpperCase) ++score;
+    if(this.hasLowerCase) ++score;
+    if(this.hasSpecialChar) ++score;
+
+    return score;
   }
 }

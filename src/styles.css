@@ -1,23 +1,12 @@
 .btn-no-border {
-    border-bottom-color: rgb(222, 226, 230);
-    border-bottom-left-radius: 6px;
-    border-bottom-right-radius: 6px;
-    border-bottom-style: solid;
-    border-bottom-width: 1px;
+    border-color: rgb(222, 226, 230);
     border-image-outset: 0;
     border-image-repeat: stretch;
     border-image-slice: 100%;
     border-image-source: none;
     border-image-width: 1;
-    border-left-width: 1px;
-    border-right-color: rgb(222, 226, 230);
-    border-right-style: solid;
-    border-right-width: 1px;
-    border-top-color: rgb(222, 226, 230);
-    border-top-left-radius: 6px;
-    border-top-right-radius: 6px;
-    border-top-style: solid;
-    border-top-width: 1px;
     background-color: white;
-    border-left: none;
+    border-style: solid;
+    border-radius: 6px;
+    border-width: 1px 1px 1px 0;
 }

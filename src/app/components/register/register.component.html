@@ -1,110 +1,4 @@
-<!-- <div>
-    <form [formGroup]="registerForm" (ngSubmit)="register(registerForm)">
-
-        <input id="email" type="text" formControlName="email" placeholder="Email">
-        <div *ngIf="registerForm.get('email')?.errors && registerForm.get('email')?.touched">
-            <p *ngIf="registerForm.get('email')?.getError('required') && registerForm.get('email')?.touched">email is
-                required</p>
-            <p *ngIf="registerForm.get('email')?.getError('email')"> email is invalid</p>
-        </div>
-
-        <input id="password" type="password" formControlName="password" placeholder="Password">
-        <div *ngIf="registerForm.get('password')?.errors && registerForm.get('password')?.touched">
-            <p *ngIf="registerForm.get('password')?.getError('required') && registerForm.get('password')?.touched">
-                password is required</p>
-            <p *ngIf="registerForm.get('password')?.getError('pattern') && registerForm.get('password')?.touched">
-                password pattern is invalid</p>
-        </div>
-
-        <input id="confirmPassword" type="password" formControlName="confirmPassword" placeholder="Confirm Password">
-        <div *ngIf="registerForm.get('confirmPassword')?.errors && registerForm.get('confirmPassword')?.touched">
-            <p *ngIf="registerForm.get('confirmPassword')?.getError('required')">password
-                confirmation is required</p>
-            <p *ngIf="registerForm.get('confirmPassword')?.getError('pattern')"> password
-                confirmation pattern is invalid</p>
-            <p *ngIf="registerForm.get('confirmPassword') != registerForm.get('password')">
-                password does not match</p>
-        </div>
-
-        <input id="firstName" type="text" formControlName="firstName" placeholder="First Name">
-        <div *ngIf="registerForm.get('firstName')?.errors && registerForm.get('firstName')?.touched">
-            <p *ngIf="registerForm.get('firstName')?.getError('required') && registerForm.get('firstName')?.touched">
-                First name is required</p>
-        </div>
-
-        <input id="lastName" type="text" formControlName="lastName" placeholder="Last Name">
-        <div *ngIf="registerForm.get('lastName')?.errors && registerForm.get('lastName')?.touched">
-            <p *ngIf="registerForm.get('lastName')?.getError('required') && registerForm.get('lastName')?.touched">
-                Last name is required</p>
-        </div>
-
-        <input type="submit" value="Register" />
-    </form>
-    <a routerLink="/login">Having an account already? Login here</a>
-</div> -->
-
-
-<!-- <div class="vh-100 d-flex align-items-center justify-content-center bg-light">
-    <div class="container bg-white d-flex align-items-center justify-content-center" style="width:75%; height:80%">
-        <div class="container bg-white" style="max-width: 550px; padding: 20px;">
-            <h2 class="text-center mb-5 text-secondary">Register</h2>
-            <form [formGroup]="registerForm" (ngSubmit)="register(registerForm)">
-                <div class="mb-3">
-                    <label for="email" class="form-label">Email</label>
-                    <input id="email" type="text" formControlName="email" class="form-control" placeholder="email">
-                    <div *ngIf="registerForm.get('email')?.errors && registerForm.get('email')?.touched">
-                        <p *ngIf="registerForm.get('email')?.getError('required') && registerForm.get('email')?.touched"
-                            class="text-danger">*required field</p>
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="password" class="form-label">Password</label>
-                    <div class="input-group">
-                        <input id="password" type={{passwordFieldType}} formControlName="password" class="form-control border-end-0"
-                            placeholder="password">
-                        <button type="button" class="btn-no-border" (click)="togglePasswordVisibility()">
-                            <i [ngClass]="passwordFieldType === 'password' ? 'bi bi-eye' : 'bi bi-eye-slash'"></i>
-                        </button>
-                    </div>
-                    <div *ngIf="registerForm.get('password')?.errors && registerForm.get('password')?.touched">
-                        <p *ngIf="registerForm.get('password')?.getError('required') && registerForm.get('password')?.touched"
-                            class="text-danger">*required field</p>
-                        <p *ngIf="registerForm.get('password')?.getError('pattern') && registerForm.get('password')?.touched"
-                            class="text-danger">Password pattern is invalid</p>
-                    </div>
-                </div>
-
-                <div class="mb-3">
-                    <label for="confirmPassword" class="form-label">Confirm Password</label>
-                    <div class="input-group">
-                        <input id="confirmPassword" type={{confirmPasswordFieldType}} formControlName="confirmPassword" 
-                        class="form-control border-end-0" placeholder="password">
-                        <button type="button" class="btn-no-border" (click)="toggleConfirmPasswordVisibility()">
-                            <i [ngClass]="confirmPasswordFieldType === 'password' ? 'bi bi-eye' : 'bi bi-eye-slash'"></i>
-                        </button>
-                    </div>
-                    <div *ngIf="registerForm.get('confirmPassword')?.errors && registerForm.get('confirmPassword')?.touched">
-                        <p *ngIf="registerForm.get('confirmPassword')?.getError('required') && registerForm.get('confirmPassword')?.touched"
-                            class="text-danger">*required field</p>
-                        <p *ngIf="registerForm.get('confirmPassword')?.getError('pattern') && registerForm.get('confirmPassword')?.touched"
-                            class="text-danger">Password pattern is invalid</p>
-                    </div>
-                </div>
-
-                <div class="d-grid">
-                    <input type="submit" class="btn btn-primary" value="Register" style="width: 100%; margin: 0 auto;">
-                </div>
-            </form>
-            <div class="text-center mt-3">
-                <a routerLink="/login">Having an account already? Login here</a>
-            </div>
-        </div>
-    </div>
-</div> -->
-
-
-<div class="vh-100 d-flex align-items-center justify-content-center bg-light">
+<div class="vh-100 d-flex align-items-center justify-content-center bg-white">
     <div class="container bg-white d-flex align-items-center justify-content-center" style="width:75%; height:80%">
         <div class="container bg-white" style="max-width: 550px; padding: 20px;">
             <h2 class="text-center mb-5 text-secondary">Register</h2>
@@ -143,14 +37,18 @@
                     <label for="password" class="form-label">Password</label>
                     <div class="input-group">
                         <input id="password" type="{{ passwordFieldType }}" formControlName="password"
-                            class="form-control border-end-0" placeholder="Password" (focus)="showPasswordPopover = true" (blur)="showPasswordPopover = false">
+                            class="form-control border-end-0" placeholder="Password"
+                            (focus)="showPasswordPopover = true" (blur)="showPasswordPopover = false">
                         <button type="button" class="btn-no-border" (click)="togglePasswordVisibility()">
                             <i [ngClass]="passwordFieldType === 'password' ? 'bi bi-eye' : 'bi bi-eye-slash'"></i>
                         </button>
-                        <div class="container">
-                        <app-password-popover [password]="registerForm.get('password')?.value" [showPopover]="showPasswordPopover"></app-password-popover>
                     </div>
+
+                    <div>
+                        <app-password-popover [password]="registerForm.get('password')?.value"
+                            [showPopover]="showPasswordPopover"></app-password-popover>
                     </div>
+
                     <div *ngIf="registerForm.get('password')?.errors && registerForm.get('password')?.touched">
                         <p *ngIf="registerForm.get('password')?.getError('required') && registerForm.get('password')?.touched"
                             class="text-danger">*required field</p>
@@ -162,19 +60,25 @@
                 <div class="mb-3">
                     <label for="confirmPassword" class="form-label">Confirm Password</label>
                     <div class="input-group">
-                        <input id="confirmPassword" type="{{ confirmPasswordFieldType }}" formControlName="confirmPassword"
-                            class="form-control border-end-0" placeholder="Confirm Password">
+                        <input id="confirmPassword" type="{{ confirmPasswordFieldType }}"
+                            formControlName="confirmPassword" class="form-control border-end-0"
+                            placeholder="Confirm Password">
                         <button type="button" class="btn-no-border" (click)="toggleConfirmPasswordVisibility()">
-                            <i [ngClass]="confirmPasswordFieldType === 'password' ? 'bi bi-eye' : 'bi bi-eye-slash'"></i>
+                            <i
+                                [ngClass]="confirmPasswordFieldType === 'password' ? 'bi bi-eye' : 'bi bi-eye-slash'"></i>
                         </button>
                     </div>
-                    <div *ngIf="registerForm.get('confirmPassword')?.errors && registerForm.get('confirmPassword')?.touched">
+                    <div
+                        *ngIf="registerForm.get('confirmPassword')?.errors && registerForm.get('confirmPassword')?.touched">
                         <p *ngIf="registerForm.get('confirmPassword')?.getError('required') && registerForm.get('confirmPassword')?.touched"
                             class="text-danger">*required field</p>
                         <p *ngIf="registerForm.get('confirmPassword')?.getError('pattern') && registerForm.get('confirmPassword')?.touched"
                             class="text-danger">Password pattern is invalid</p>
                     </div>
                 </div>
+
+
+
 
                 <div class="d-grid">
                     <input type="submit" class="btn btn-primary" value="Register" style="width: 100%; margin: 0 auto;">

@@ -24,7 +24,7 @@ export class StudentModalComponent {
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       gender: ['', Validators.required],
-      birthDate: ['', Validators.required],
+      //birthDate: ['', Validators.required],
       age: ['', Validators.required],
       country: ['', Validators.required]
     });
