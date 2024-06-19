@@ -1,31 +1,8 @@
-<nav>
-    <div>
-        <a routerLink="/home">
-            <img width="100" src="" alt="Your Logo">
-        </a>
-
-        <div id="navbarNav">
-            <ul>
-                <li>
-                    <a aria-current="page" routerLink="/home" routerLinkActive="active">Home</a>
-                </li>
-
-                <li *ngIf="!authService.isLoggedIn">
-                    <a aria-current="page" routerLink="/login" routerLinkActive="active">Log in | Register</a>
-                </li>
-
-                <!-- <li *ngIf="authService.isLoggedIn">
-                    <a aria-current="page" routerLink="/admin" routerLinkActive="active">Admin</a>
-                </li> -->
-
-                <li *ngIf="authService.isLoggedIn">
-                    <a aria-current="page" routerLink="/profile" routerLinkActive="active">Profile</a>
-                </li>
-
-                <li *ngIf="authService.isLoggedIn">
-                    <a aria-current="page" (click)="logout()">Log out</a>
-                </li>
-            </ul>
-        </div>
+<nav class="mx-5 my-4 sticky-top bg-white">
+    <div class="mx-4 my-3 d-flex justify-content-between">
+        <img src="assets/images/logo.png" alt="ultatel logo" class="img-fluid mb-3" style="max-width: 150px;">
+        <button (click)="logout()" class="btn btn-light border border-1 col-md-1" style="max-height: 40px;">
+            Logout
+        </button>
     </div>
 </nav>

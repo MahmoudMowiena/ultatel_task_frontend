@@ -51,7 +51,6 @@ export class AuthService {
     });
   }
 
-
   register(registerUser: RegisterUser): Observable<string | null> {
     return new Observable<string | null>(observer => {
       this.http.post<{ access_token: string }>(`${this.baseUrl}/register`, registerUser).subscribe({
@@ -80,7 +79,6 @@ export class AuthService {
     });
   }
 
-
   logout(): void {
     localStorage.removeItem('token');
     this.userSubject.next(null);
@@ -95,8 +93,3 @@ export class AuthService {
     return !!this.getUser();
   }
 }
-
-
-// login tested
-// register tested
-// logout tested tested

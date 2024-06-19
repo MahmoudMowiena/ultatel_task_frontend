@@ -1,51 +1,15 @@
-<!-- <button (click)="addStudent()">Add Student</button>
-
-<table>
-    <thead>
-        <tr>
-            <th>Edit</th>
-            <th>Student Name</th>
-            <th>Age</th>
-            <th>Gender</th>
-            <th>Email</th>
-            <th>Country</th>
-            <th>Delete</th>
-        </tr>
-    </thead>
-    <tbody>
-        @for (student of students; track student.id) {
-            <tr>
-                <td>
-                    <button (click)="editStudent(student)">edit</button>
-                </td>
-                <td>{{student.firstName + ' ' + student.lastName}}</td>
-                <td>{{student.birthDate}}</td>
-                <td>{{student.gender}}</td>
-                <td>{{student.email}}</td>
-                <td>{{student.country}}</td>
-                <td>
-                    <button (click)="deleteStudent(student.id)">delete</button>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
- -->
-
+<app-header></app-header>
 
 <div class="container my-5">
-    <div class="mx-4 mb-5">
-        <img src="assets/images/logo.png" alt="ultatel logo" class="img-fluid mb-3" style="max-width: 150px;">
-    </div>
-    
-    <div class="d-flex justify-content-between align-items-center mb-4">
+    <!-- Title Section -->
+    <div class="d-flex justify-left align-items-center mb-4">
         <h4 class="text-secondary">Students</h4>
-        <button class="btn btn-success col-md-2" (click)="addStudent()">Add New</button>
-      </div>      
+    </div>
 
-    <form [formGroup]="searchForm" class="mb-4">
+    <!-- Search Section -->
+    <form [formGroup]="searchForm" (ngSubmit)="onSearch()" class="mb-4">
         <div class="row">
-            <div class="col-md-3 mb-3" >
+            <div class="col-md-3 mb-3">
                 <label for="name">Name</label>
                 <input type="text" class="form-control" id="name" formControlName="name">
             </div>
@@ -72,24 +36,27 @@
                 </select>
             </div>
             <div class="d-flex justify-content-end">
-                <button type="submit" class="btn btn-primary col-2 m-1" >Search</button>
-                <button type="button" class="btn btn-light border border-2 col-2 m-1" (click)="resetForm()">Reset</button>
+                <button type="submit" class="btn btn-primary col-2 m-1">Search</button>
+                <button type="button" class="btn btn-light border border-1 col-2 m-1"
+                    (click)="resetForm()">Reset</button>
             </div>
         </div>
-        
+
     </form>
 
     <!-- Table Section -->
-    <div class="d-flex justify-left align-items-right mb-3">
+    <div class="d-flex justify-content-between align-items-right mt-3 mb-4">
         <div>
             <label for="entries">Show entries</label>
-            <select class="form-control d-inline-block w-auto" id="entries" >
-                <option value="10">10</option>
-                <option value="25">25</option>
-                <option value="50">50</option>
-                <option value="100">100</option>
+            <select class="form-control d-inline-block w-auto mx-1" id="entries" [(ngModel)]="entriesPerPage"
+                (change)="onEntriesPerPageChange()">
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
             </select>
         </div>
+        <button class="btn btn-success col-md-2" (click)="addStudent()">Add New</button>
     </div>
 
     <div class="table-responsive">
@@ -114,7 +81,7 @@
                         </button>
                     </td>
                     <td>{{ student.firstName + ' ' + student.lastName }}</td>
-                    <td>{{ student.birthDate | date:'dd/MM/yyyy' }}</td>
+                    <td>{{ calculateAge(student.birthDate) }}</td>
                     <td>{{ student.gender }}</td>
                     <td>{{ student.email }}</td>
                     <td>{{ student.country }}</td>
@@ -132,7 +99,7 @@
     <!-- Pagination Section -->
     <div class="d-flex justify-content-between align-items-center">
         <div>
-            Showing 1 to {{ entries }} of {{ totalEntries }} entries
+            Showing {{this.startingEntriesIndex}} to {{this.endingEntriesIndex}} of {{ totalEntries }} entries
         </div>
         <nav>
             <ul class="pagination">
@@ -142,9 +109,11 @@
                 <li class="page-item" [class.disabled]="currentPage === 1">
                     <a class="page-link" (click)="goToPreviousPage()">Previous</a>
                 </li>
-                <li class="page-item" [class.active]="page === currentPage" *ngFor="let page of pages">
+                @for(page of pages; track page) {
+                <li class="page-item" [class.active]="page === currentPage">
                     <a class="page-link" (click)="goToPage(page)">{{ page }}</a>
                 </li>
+                }
                 <li class="page-item" [class.disabled]="currentPage === totalPages">
                     <a class="page-link" (click)="goToNextPage()">Next</a>
                 </li>
