@@ -1,7 +1,12 @@
-<div class="vh-100 d-flex align-items-center justify-content-center bg-white">
+<div class="d-flex flex-column align-items-center justify-content-center bg-white">
+
+    <div class="mx-4 mt-5 mb-2 d-flex align-items-center justify-content-center">
+        <img src="assets/images/logo.png" alt="ultatel logo" class="img-fluid mb-3" style="max-width: 250px;">
+    </div>
+
     <div class="container bg-white d-flex align-items-center justify-content-center" style="width:75%; height:80%">
         <div class="container bg-white" style="max-width: 550px; padding: 20px;">
-            <h2 class="text-center mb-5 text-secondary">Register</h2>
+            <h3 class="text-center mb-4 text-secondary">Register</h3>
             <form [formGroup]="registerForm" (ngSubmit)="register(registerForm)">
                 <div class="mb-3 row">
                     <div class="col-md-6">

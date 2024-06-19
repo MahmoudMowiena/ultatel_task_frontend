@@ -1,5 +1,9 @@
-<div class="vh-100 d-flex flex-column align-items-center justify-content-center bg-white">
-    <div class="container bg-white d-flex align-items-center justify-content-center" style="width:75%; height:80%">
+<div class="d-flex flex-column align-items-center justify-content-center bg-white">
+    <div class="mx-4 my-5 d-flex align-items-center justify-content-center">
+        <img src="assets/images/logo.png" alt="ultatel logo" class="img-fluid mb-3" style="max-width: 250px;">
+    </div>
+
+    <div class="container bg-white d-flex align-items-center justify-content-center" style="width:75%; height:75%">
         <div class="container bg-white" style="max-width: 550px; padding: 20px;">
             <h2 class="text-center mb-5 text-secondary">Welcome</h2>
             <form [formGroup]="loginForm" (ngSubmit)="login(loginForm)">
@@ -15,8 +19,8 @@
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
                     <div class="input-group">
-                        <input id="password" type={{passwordFieldType}} formControlName="password" class="form-control border-end-0"
-                            placeholder="password">
+                        <input id="password" type={{passwordFieldType}} formControlName="password"
+                            class="form-control border-end-0" placeholder="password">
                         <button type="button" class="btn-no-border" (click)="togglePasswordVisibility()">
                             <i [ngClass]="passwordFieldType === 'password' ? 'bi bi-eye' : 'bi bi-eye-slash'"></i>
                         </button>

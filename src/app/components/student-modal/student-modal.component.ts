@@ -10,12 +10,11 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [ReactiveFormsModule, CommonModule, NgbDatepickerModule],
   templateUrl: './student-modal.component.html',
-  styleUrls: ['./student-modal.component.css']
+  styleUrls: ['./student-modal.component.css'],
 })
 export class StudentModalComponent {
   @Input() student!: Student | CreateStudent;
   @Output() save = new EventEmitter<Student>();
-
   addEditForm: FormGroup;
 
   constructor(public activeModal: NgbActiveModal, private fb: FormBuilder) {
@@ -24,8 +23,7 @@ export class StudentModalComponent {
       lastName: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       gender: ['', Validators.required],
-      //birthDate: ['', Validators.required],
-      age: ['', Validators.required],
+      birthDate: ['', Validators.required],
       country: ['', Validators.required]
     });
   }
@@ -43,5 +41,9 @@ export class StudentModalComponent {
     }
   }
 
+  onDateSelect(event: NgbDateStruct) {
+    this.addEditForm.patchValue({
+      birthDate: `${event.year}-${event.month}-${event.day}`
+    });
+  }
 }
-

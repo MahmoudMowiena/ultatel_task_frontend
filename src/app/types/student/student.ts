@@ -5,7 +5,7 @@ export interface Student {
     firstName: string;
     lastName: string;
     email: string;
-    age: number;
+    birthDate: Date;
     gender: Gender;
     country: string;
 }
