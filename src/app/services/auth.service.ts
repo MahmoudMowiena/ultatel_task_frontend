@@ -6,6 +6,7 @@ import * as jwtdecode from 'jwt-decode';
 import { LoginUser } from '../types/user/loginUser';
 import { User } from '../types/user/user';
 import { RegisterUser } from '../types/user/registerUser';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -14,7 +15,7 @@ export class AuthService {
 
   private userSubject: BehaviorSubject<User | null>;
   public user: Observable<User | null>;
-  private readonly baseUrl = "http://localhost:3000/auth";
+  private readonly baseUrl = `${environment.apiUrl}/auth`;
 
 
   constructor(private http: HttpClient, private router: Router) {
@@ -43,8 +44,7 @@ export class AuthService {
           observer.complete();
         },
         error: error => {
-          console.error('Login failed', error);
-          observer.next(null);
+          observer.error(error);
           observer.complete();
         }
       });
@@ -71,8 +71,7 @@ export class AuthService {
           observer.complete();
         },
         error: error => {
-          console.error('Registration failed', error);
-          observer.next(null);
+          observer.error(error);
           observer.complete();
         }
       });
@@ -82,7 +81,6 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem('token');
     this.userSubject.next(null);
-    //this.router.navigate(['/login']);
   }
 
   getUser(): User | null {

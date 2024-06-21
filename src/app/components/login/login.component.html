@@ -6,6 +6,10 @@
     <div class="container bg-white d-flex align-items-center justify-content-center" style="width:75%; height:75%">
         <div class="container bg-white" style="max-width: 550px; padding: 20px;">
             <h2 class="text-center mb-5 text-secondary">Welcome</h2>
+            @if(isAlertOpen) {
+            <ngb-alert [type]="'danger'" (closed)="closeAlert()">"Invalid email or password. Please try
+                again."</ngb-alert>
+            }
             <form [formGroup]="loginForm" (ngSubmit)="login(loginForm)">
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
@@ -28,8 +32,6 @@
                     <div *ngIf="loginForm.get('password')?.errors && loginForm.get('password')?.touched">
                         <p *ngIf="loginForm.get('password')?.getError('required') && loginForm.get('password')?.touched"
                             class="text-danger">*required field</p>
-                        <p *ngIf="loginForm.get('password')?.getError('pattern') && loginForm.get('password')?.touched"
-                            class="text-danger">Password pattern is invalid</p>
                     </div>
                 </div>
 

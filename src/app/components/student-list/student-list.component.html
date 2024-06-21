@@ -101,7 +101,16 @@
         <div>
             Showing {{this.startingEntriesIndex}} to {{this.endingEntriesIndex}} of {{ totalEntries }} entries
         </div>
-        <nav>
+        <ngb-pagination [collectionSize]="totalEntries" (pageChange)="onPageChange($event)" [pageSize]="entriesPerPage"
+            [(page)]="currentPage" [maxSize]="5" [boundaryLinks]="true" />
+    </div>
+</div>
+
+
+
+
+
+<!-- <nav>
             <ul class="pagination">
                 <li class="page-item" [class.disabled]="currentPage === 1">
                     <a class="page-link" (click)="goToFirstPage()">First</a>
@@ -121,6 +130,4 @@
                     <a class="page-link" (click)="goToLastPage()">Last</a>
                 </li>
             </ul>
-        </nav>
-    </div>
-</div>
+        </nav> -->

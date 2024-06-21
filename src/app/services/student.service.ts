@@ -3,13 +3,16 @@ import { Injectable } from '@angular/core';
 import { CreateStudent } from '../types/student/create-student';
 import { Observable } from 'rxjs';
 import { Student } from '../types/student/student';
+import { environment } from '../../environments/environment';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class StudentService {
 
-  private readonly baseUrl = "http://localhost:3000/students";
+  private readonly baseUrl = `${environment.apiUrl}/students`;
+
 
   constructor(private httpClient: HttpClient) { }
 

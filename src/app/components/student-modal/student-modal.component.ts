@@ -17,6 +17,11 @@ export class StudentModalComponent {
   @Output() save = new EventEmitter<Student>();
   addEditForm: FormGroup;
 
+  allFieldsFilled: boolean = false;
+  isDateTouched: boolean = false;
+  isDateButtonClicked: boolean = false;
+
+
   constructor(public activeModal: NgbActiveModal, private fb: FormBuilder) {
     this.addEditForm = this.fb.group({
       firstName: ['', Validators.required],
@@ -25,6 +30,10 @@ export class StudentModalComponent {
       gender: ['', Validators.required],
       birthDate: ['', Validators.required],
       country: ['', Validators.required]
+    });
+
+    this.addEditForm.valueChanges.subscribe(() => {
+      this.allFieldsFilled = this.addEditForm.valid;
     });
   }
 
@@ -36,8 +45,8 @@ export class StudentModalComponent {
 
   onSave(): void {
     if (this.addEditForm.valid) {
-      this.save.emit(this.addEditForm.value);
       this.activeModal.close();
+      this.save.emit(this.addEditForm.value);
     }
   }
 
@@ -45,5 +54,13 @@ export class StudentModalComponent {
     this.addEditForm.patchValue({
       birthDate: `${event.year}-${event.month}-${event.day}`
     });
+  }
+
+  onDateTouch() {
+    this.isDateTouched = true;
+  }
+
+  onDateButtonClick() {
+    this.isDateButtonClicked = true;
   }
 }

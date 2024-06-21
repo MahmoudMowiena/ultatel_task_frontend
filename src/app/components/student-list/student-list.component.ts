@@ -3,7 +3,7 @@ import { FormControl, FormGroup, FormsModule, Validators } from '@angular/forms'
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
-
+import { NgbPaginationModule } from '@ng-bootstrap/ng-bootstrap';
 import { Student } from '../../types/student/student';
 import { CreateStudent } from '../../types/student/create-student';
 import { StudentService } from '../../services/student.service';
@@ -13,7 +13,7 @@ import { HeaderComponent } from '../header/header.component';
 @Component({
   selector: 'app-student-list',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, FormsModule, HeaderComponent],
+  imports: [ReactiveFormsModule, CommonModule, FormsModule, HeaderComponent, NgbPaginationModule],
   templateUrl: './student-list.component.html',
   styleUrls: ['./student-list.component.css']
 })
@@ -83,6 +83,7 @@ export class StudentListComponent implements OnInit {
     modalRef.componentInstance.student = student;
     modalRef.componentInstance.save.subscribe((updatedStudent: Student) => {
       updatedStudent.id = student.id;
+      this.updateStudentLocally(updatedStudent);
       this.studentService.update(updatedStudent).subscribe({
         next: () => this.fetchStudents(),
         error: err => {
@@ -104,7 +105,7 @@ export class StudentListComponent implements OnInit {
         }
       });
     });
-  } // do not forget to add student locally first for better performance and in edit as well !!!!!!!!!!
+  }
 
   resetForm(): void {
     this.searchForm.patchValue({
@@ -121,35 +122,6 @@ export class StudentListComponent implements OnInit {
   onSearch() {
     this.currentPage = 1;
     this.isSearchClicked = true;
-    this.fetchStudents();
-  }
-
-  goToFirstPage(): void {
-    this.currentPage = 1;
-    this.fetchStudents();
-  }
-
-  goToPreviousPage(): void {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-      this.fetchStudents();
-    }
-  }
-
-  goToPage(page: number): void {
-    this.currentPage = page;
-    this.fetchStudents();
-  }
-
-  goToNextPage(): void {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-      this.fetchStudents();
-    }
-  }
-
-  goToLastPage(): void {
-    this.currentPage = this.totalPages;
     this.fetchStudents();
   }
 
@@ -171,5 +143,24 @@ export class StudentListComponent implements OnInit {
     }
 
     return age;
+  }
+
+  onPageChange(newPage: number) {
+    this.currentPage = newPage;
+    this.fetchStudents();
+  }
+
+  updateStudentLocally(updatedStudent: Student) {
+    const index = this.students.findIndex(student => student.id === updatedStudent.id);
+
+    this.students[index] = {
+      ...this.students[index],
+      firstName: updatedStudent.firstName,
+      lastName: updatedStudent.lastName,
+      email: updatedStudent.email,
+      birthDate: updatedStudent.birthDate,
+      gender: updatedStudent.gender,
+      country: updatedStudent.country
+    }
   }
 }

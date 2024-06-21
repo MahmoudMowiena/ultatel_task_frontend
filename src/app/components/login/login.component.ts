@@ -3,29 +3,39 @@ import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { AuthService } from '../../services/auth.service';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
+import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
+
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, CommonModule, RouterLink],
+  imports: [ReactiveFormsModule, CommonModule, RouterLink, NgbAlertModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
 export class LoginComponent {
   passwordFieldType: string = 'password';
-  
+  isAlertOpen: boolean = false;
+
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required]),
-    password: new FormControl('', [Validators.required, Validators.pattern(/^[A-Za-z0-9]{3,12}/)])
+    password: new FormControl('', [Validators.required])
   });
 
-  constructor(private authService: AuthService, public router: Router) { }
+  constructor(private authService: AuthService, public router: Router) {}
+  
 
   login(formGroup: FormGroup): void {
     if (formGroup.valid) {
-      this.authService.login(formGroup.value).subscribe(token => {
-        if (token) {
-          this.router.navigate(['/']);
+      this.authService.login(formGroup.value).subscribe({
+        next: token => {
+          if (token) {
+            this.router.navigate(['/']);
+          }
+        },
+        error: error => {
+          this.isAlertOpen = true;
+          console.error('Login failed', error);
         }
       });
     }
@@ -33,5 +43,9 @@ export class LoginComponent {
 
   togglePasswordVisibility() {
     this.passwordFieldType = this.passwordFieldType === 'password' ? 'text' : 'password';
+  }
+
+  closeAlert() {
+    this.isAlertOpen = false;
   }
 }

@@ -10,3 +10,11 @@
     border-radius: 6px;
     border-width: 1px 1px 1px 0;
 }
+
+.btn-invalid {
+    border-color: #dc3545; /* Red border */
+}
+
+.btn-valid {
+    border-color: #198754;
+}
