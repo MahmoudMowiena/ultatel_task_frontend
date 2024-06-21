@@ -19,7 +19,7 @@ import { HeaderComponent } from '../header/header.component';
 })
 export class StudentListComponent implements OnInit {
   students: Student[] = [];
-  entriesPerPage: number = 3; // default value for entries per page
+  entriesPerPage: number = 10;
   totalEntries: number = 0;
   currentPage: number = 1;
   totalPages: number = 1;
