@@ -64,13 +64,6 @@ The application is deployed on Vercel for the frontend and Heroku for the backen
     npm install
     ```
 
-3. Set up environment variables:
-   Create an `.env` file in the root directory and add the following variables:
-    ```env
-    NODE_ENV=development
-    API_URL=https://student-manager-backend-940f11b85bff.herokuapp.com
-    ```
-
 ### Running the Application
 
 1. Start the development server:

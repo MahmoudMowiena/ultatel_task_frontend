@@ -2,8 +2,9 @@
 
 <div class="container my-5">
     <!-- Title Section -->
-    <div class="d-flex justify-left align-items-center mb-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
         <h4 class="text-secondary">Students</h4>
+        <button class="btn btn-success col-md-2" (click)="addStudent()">Add New</button>
     </div>
 
     <!-- Search Section -->
@@ -45,18 +46,19 @@
     </form>
 
     <!-- Table Section -->
-    <div class="d-flex justify-content-between align-items-right mt-3 mb-4">
+    <div class="d-flex justify-content-between align-items-right mt-4 mb-3">
         <div>
             <label for="entries">Show entries</label>
             <select class="form-control d-inline-block w-auto mx-1" id="entries" [(ngModel)]="entriesPerPage"
                 (change)="onEntriesPerPageChange()">
-                <option value="2">2</option>
-                <option value="3">3</option>
-                <option value="4">4</option>
                 <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
             </select>
         </div>
-        <button class="btn btn-success col-md-2" (click)="addStudent()">Add New</button>
+        <ngb-pagination [collectionSize]="totalEntries" (pageChange)="onPageChange($event)" [pageSize]="entriesPerPage"
+        [(page)]="currentPage" [maxSize]="5" [boundaryLinks]="true" />
     </div>
 
     <div class="table-responsive">
@@ -105,29 +107,3 @@
             [(page)]="currentPage" [maxSize]="5" [boundaryLinks]="true" />
     </div>
 </div>
-
-
-
-
-
-<!-- <nav>
-            <ul class="pagination">
-                <li class="page-item" [class.disabled]="currentPage === 1">
-                    <a class="page-link" (click)="goToFirstPage()">First</a>
-                </li>
-                <li class="page-item" [class.disabled]="currentPage === 1">
-                    <a class="page-link" (click)="goToPreviousPage()">Previous</a>
-                </li>
-                @for(page of pages; track page) {
-                <li class="page-item" [class.active]="page === currentPage">
-                    <a class="page-link" (click)="goToPage(page)">{{ page }}</a>
-                </li>
-                }
-                <li class="page-item" [class.disabled]="currentPage === totalPages">
-                    <a class="page-link" (click)="goToNextPage()">Next</a>
-                </li>
-                <li class="page-item" [class.disabled]="currentPage === totalPages">
-                    <a class="page-link" (click)="goToLastPage()">Last</a>
-                </li>
-            </ul>
-        </nav> -->

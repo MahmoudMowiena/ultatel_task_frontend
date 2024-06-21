@@ -82,12 +82,4 @@ export class AuthService {
     localStorage.removeItem('token');
     this.userSubject.next(null);
   }
-
-  getUser(): User | null {
-    return this.userSubject.value;
-  }
-
-  get isLoggedIn(): boolean {
-    return !!this.getUser();
-  }
 }

@@ -46,14 +46,3 @@ export class StudentService {
     return this.httpClient.get(`${this.baseUrl}/search`, { params });
   }
 }
-
-
-
-  // getByPage(page: number, limit: number): Observable<any> {
-  //   const params = new HttpParams()
-  //     .set('page', page.toString())
-  //     .set('limit', limit.toString());
-
-  //   return this.httpClient.get(`${this.baseUrl}search`, { params });
-  // }
-
