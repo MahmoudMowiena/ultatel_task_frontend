@@ -40,8 +40,8 @@ The Student Manager Application is a robust and user-friendly platform designed 
 
 The application is deployed on Vercel for the frontend and Heroku for the backend.
 
-- **Frontend**: Hosted on Vercel. The link is accessible via the GitHub repository.
-- **Backend**: Hosted on Heroku. [Base URL for Backend Application]((https://student-manager-backend-940f11b85bff.herokuapp.com))
+- **Frontend**: Hosted on Vercel. [Click here](https://ultatel-task-frontend-eight.vercel.app)
+- **Backend**: Hosted on Heroku. [Base URL for Backend Application](https://student-manager-backend-940f11b85bff.herokuapp.com)
 
 ## Getting Started
 
