@@ -1,5 +1,5 @@
 <div class="modal-header bg-light">
-  <h5 class="modal-title">Add/Edit Student</h5>
+  <h5 class="modal-title">{{title}} Student</h5>
   <button type="button" class="btn-close" aria-label="Close" (click)="activeModal.dismiss()"></button>
 </div>
 
@@ -8,29 +8,29 @@
     <div class="mb-3">
       <label for="firstName" class="form-label">First Name*</label>
       <input type="text" id="firstName" class="form-control" formControlName="firstName" placeholder="first name"
-        [class.is-invalid]="addEditForm.get('firstName')?.invalid && addEditForm.get('firstName')?.touched"
-        [class.is-valid]="addEditForm.get('firstName')?.valid && addEditForm.get('firstName')?.touched"/>
+        [class.is-invalid]="addEditForm.get('firstName')?.invalid && (addEditForm.get('firstName')?.touched || isSaveBtnClicked)"
+        [class.is-valid]="addEditForm.get('firstName')?.valid && addEditForm.get('firstName')?.touched" />
     </div>
 
     <div class="mb-3">
       <label for="lastName" class="form-label">Last Name*</label>
       <input type="text" id="lastName" class="form-control" formControlName="lastName" placeholder="last name"
-        [class.is-invalid]="addEditForm.get('lastName')?.invalid && addEditForm.get('lastName')?.touched"
-        [class.is-valid]="addEditForm.get('lastName')?.valid && addEditForm.get('lastName')?.touched"/>
+        [class.is-invalid]="addEditForm.get('lastName')?.invalid && (addEditForm.get('lastName')?.touched || isSaveBtnClicked)"
+        [class.is-valid]="addEditForm.get('lastName')?.valid && addEditForm.get('lastName')?.touched" />
     </div>
 
     <div class="mb-3">
       <label for="email" class="form-label">Email*</label>
       <input type="email" id="email" class="form-control" formControlName="email" placeholder="example@domain.com"
-        [class.is-invalid]="addEditForm.get('email')?.invalid && addEditForm.get('email')?.touched"
-        [class.is-valid]="addEditForm.get('email')?.valid && addEditForm.get('email')?.touched"/>
+        [class.is-invalid]="addEditForm.get('email')?.invalid && (addEditForm.get('email')?.touched || isSaveBtnClicked)"
+        [class.is-valid]="addEditForm.get('email')?.valid && addEditForm.get('email')?.touched" />
     </div>
 
     <div class="mb-3">
       <label for="gender" class="form-label">Gender*</label>
       <select id="gender" class="form-select" formControlName="gender"
         [ngClass]="{ 'text-muted': addEditForm.get('gender')?.value === '' }"
-        [class.is-invalid]="addEditForm.get('gender')?.invalid && addEditForm.get('gender')?.touched"
+        [class.is-invalid]="addEditForm.get('gender')?.invalid && (addEditForm.get('gender')?.touched || isSaveBtnClicked)"
         [class.is-valid]="addEditForm.get('gender')?.valid && addEditForm.get('gender')?.touched">
         <option value="" disabled hidden selected>--select gender--</option>
         <option value="Male">Male</option>
@@ -43,23 +43,31 @@
       <div class="input-group">
         <input class="form-control" readonly placeholder="e.g. 15-12-2000" name="dp" ngbDatepicker #d="ngbDatepicker"
           [value]="this.addEditForm.get('birthDate')?.value" (blur)="onDateTouch()" (dateSelect)="onDateSelect($event)"
-          [class.is-invalid]="addEditForm.get('birthDate')?.invalid && (isDateTouched || isDateButtonClicked)"
+          [class.is-invalid]="addEditForm.get('birthDate')?.invalid && (isDateTouched || isDateButtonClicked || isSaveBtnClicked)"
           [class.is-valid]="addEditForm.get('birthDate')?.valid && (isDateTouched || isDateButtonClicked)"
-          />
-        <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle(); onDateButtonClick()" type="button"></button>
+          [maxDate]="maxDate" [minDate]="minDate" />
+        <button class="btn btn-outline-secondary bi bi-calendar3" (click)="d.toggle(); onDateButtonClick()"
+          type="button"></button>
       </div>
     </div>
 
     <div class="mb-3">
       <label for="country" class="form-label">Country*</label>
-      <input type="text" id="country" class="form-control" formControlName="country" placeholder="e.g. Saudi Arabia"
-        [class.is-invalid]="addEditForm.get('country')?.invalid && addEditForm.get('country')?.touched"
-        [class.is-valid]="addEditForm.get('country')?.valid && addEditForm.get('country')?.touched"/>
+      <select id="country" class="form-select" formControlName="country"
+        [class.is-invalid]="addEditForm.get('country')?.invalid && (addEditForm.get('country')?.touched || isSaveBtnClicked)"
+        [class.is-valid]="addEditForm.get('country')?.valid && addEditForm.get('country')?.touched">
+        <option value="" disabled hidden selected>--select country--</option>
+        @for (country of countries; track $index) {
+        <option value="{{country}}">{{country}}</option>
+        }
+      </select>
     </div>
   </form>
 </div>
 
 <div class="modal-footer border-0">
-  <button type="button" [disabled]="!allFieldsFilled" class="btn btn-success btn-block" [ngStyle]="{'width': '35%'}"
-    (click)="onSave()">Save</button>
+  <!-- <button type="button" [disabled]="!allFieldsFilled" class="btn btn-success btn-block" [ngStyle]="{'width': '35%'}"
+    (click)="onSave()">Save</button> -->
+  <button type="button" class="btn btn-success btn-block" [ngStyle]="{'width': '35%'}" (click)="onSave()">Save</button>
+
 </div>

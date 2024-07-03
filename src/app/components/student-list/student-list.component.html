@@ -58,7 +58,7 @@
             </select>
         </div>
         <ngb-pagination [collectionSize]="totalEntries" (pageChange)="onPageChange($event)" [pageSize]="entriesPerPage"
-        [(page)]="currentPage" [maxSize]="5" [boundaryLinks]="true" />
+            [(page)]="currentPage" [maxSize]="5" [boundaryLinks]="true" />
     </div>
 
     <div class="table-responsive">
@@ -88,7 +88,7 @@
                     <td>{{ student.email }}</td>
                     <td>{{ student.country }}</td>
                     <td>
-                        <button class="btn btn-sm btn-outline-danger" (click)="deleteStudent(student.id)">
+                        <button class="btn btn-sm btn-outline-danger" (click)="confirmDelete(student.id)">
                             <i class="bi bi-trash"></i>
                         </button>
                     </td>

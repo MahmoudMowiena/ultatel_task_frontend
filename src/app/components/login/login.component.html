@@ -13,26 +13,32 @@
             <form [formGroup]="loginForm" (ngSubmit)="login(loginForm)">
                 <div class="mb-3">
                     <label for="email" class="form-label">Email</label>
-                    <input id="email" type="text" formControlName="email" class="form-control" placeholder="email">
-                    <div *ngIf="loginForm.get('email')?.errors && loginForm.get('email')?.touched">
+                    <input id="email" type="text" formControlName="email" class="form-control" placeholder="email"
+                    [class.is-invalid]="loginForm.get('email')?.invalid && (loginForm.get('email')?.touched || isLoginClicked)"
+                    >
+                    <!-- <div *ngIf="loginForm.get('email')?.errors && loginForm.get('email')?.touched">
                         <p *ngIf="loginForm.get('email')?.getError('required') && loginForm.get('email')?.touched"
                             class="text-danger">*required field</p>
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="mb-3">
                     <label for="password" class="form-label">Password</label>
                     <div class="input-group">
                         <input id="password" type={{passwordFieldType}} formControlName="password"
-                            class="form-control border-end-0" placeholder="password">
-                        <button type="button" class="btn-no-border" (click)="togglePasswordVisibility()">
+                            class="form-control border-end-0" placeholder="password"
+                            [class.is-invalid]="loginForm.get('password')?.invalid && (loginForm.get('password')?.touched || isLoginClicked)"
+                            >
+                        <button type="button" class="btn-no-border" (click)="togglePasswordVisibility()"
+                        [class.btn-invalid]="loginForm.get('password')?.invalid && (loginForm.get('password')?.touched || isLoginClicked)"
+                        >
                             <i [ngClass]="passwordFieldType === 'password' ? 'bi bi-eye' : 'bi bi-eye-slash'"></i>
                         </button>
                     </div>
-                    <div *ngIf="loginForm.get('password')?.errors && loginForm.get('password')?.touched">
+                    <!-- <div *ngIf="loginForm.get('password')?.errors && loginForm.get('password')?.touched">
                         <p *ngIf="loginForm.get('password')?.getError('required') && loginForm.get('password')?.touched"
                             class="text-danger">*required field</p>
-                    </div>
+                    </div> -->
                 </div>
 
                 <div class="d-grid">

@@ -9,6 +9,9 @@ import { CreateStudent } from '../../types/student/create-student';
 import { StudentService } from '../../services/student.service';
 import { StudentModalComponent } from '../student-modal/student-modal.component';
 import { HeaderComponent } from '../header/header.component';
+import Swal from 'sweetalert2';
+import { Country } from '../../types/country';
+import { CountryService } from '../../services/country.service';
 
 @Component({
   selector: 'app-student-list',
@@ -27,7 +30,6 @@ export class StudentListComponent implements OnInit {
   startingEntriesIndex: number = 0;
   endingEntriesIndex: number = 0;
   isSearchClicked: boolean = false;
-
 
   searchForm: FormGroup = new FormGroup({
     name: new FormControl(''),
@@ -81,8 +83,14 @@ export class StudentListComponent implements OnInit {
   editStudent(student: Student): void {
     const modalRef = this.modalService.open(StudentModalComponent);
     modalRef.componentInstance.student = student;
+    modalRef.componentInstance.title = "Edit";
     modalRef.componentInstance.save.subscribe((updatedStudent: Student) => {
       updatedStudent.id = student.id;
+      Swal.fire(
+        'Updated!',
+        'Student has been updated successfully.',
+        'success'
+      );
       this.updateStudentLocally(updatedStudent);
       this.studentService.update(updatedStudent).subscribe({
         next: () => this.fetchStudents(),
@@ -97,6 +105,7 @@ export class StudentListComponent implements OnInit {
     const modalRef = this.modalService.open(StudentModalComponent);
     const student: CreateStudent = { firstName: "", lastName: "", email: "", country: "" };
     modalRef.componentInstance.student = student;
+    modalRef.componentInstance.title = "Add";
     modalRef.componentInstance.save.subscribe((newStudent: CreateStudent) => {
       this.studentService.add(newStudent).subscribe({
         next: () => this.fetchStudents(),
@@ -163,4 +172,29 @@ export class StudentListComponent implements OnInit {
       country: updatedStudent.country
     }
   }
+
+  confirmDelete(id: number) {
+    const studentToDelete: Student | undefined = this.students.find(std => std.id === id);
+    if (studentToDelete) {
+      Swal.fire({
+        title: `Are you sure you want to delete student "${studentToDelete.firstName} ${studentToDelete.lastName}"?`,
+        text: "This item will be deleted immediately. You can't undo this action.",
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonColor: '#d33',
+        cancelButtonColor: '#3085d6',
+        confirmButtonText: 'Yes, delete it!'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          this.deleteStudent(id);
+          Swal.fire(
+            'Deleted!',
+            'Student has been deleted successfully.',
+            'success'
+          );
+        }
+      });
+    }
+  }
+
 }

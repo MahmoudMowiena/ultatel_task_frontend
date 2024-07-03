@@ -16,9 +16,10 @@ import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 export class LoginComponent {
   passwordFieldType: string = 'password';
   isAlertOpen: boolean = false;
+  isLoginClicked: boolean = false;
 
   loginForm = new FormGroup({
-    email: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.pattern(/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/)]),
     password: new FormControl('', [Validators.required])
   });
 
@@ -26,6 +27,8 @@ export class LoginComponent {
   
 
   login(formGroup: FormGroup): void {
+    this.isLoginClicked = true;
+
     if (formGroup.valid) {
       this.authService.login(formGroup.value).subscribe({
         next: token => {

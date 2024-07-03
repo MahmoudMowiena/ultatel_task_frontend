@@ -18,10 +18,11 @@ import { NgbAlertModule } from '@ng-bootstrap/ng-bootstrap';
 export class RegisterComponent {
   passwordFieldType: string = 'password';
   confirmPasswordFieldType: string = 'password';
-  passwordStrength: 'weak' | 'medium' | 'strong' | '' = '';
   showPasswordPopover: boolean = false;
   alertMessage: string = "User registration failed. Please check your information and try again later.";
   isAlertOpen: boolean = false;
+  isRegisterBtnClicked: boolean = false;
+
 
   registerForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -36,6 +37,8 @@ export class RegisterComponent {
 
 
   register(formGroup: FormGroup) {
+    this.isRegisterBtnClicked = true;
+
     if (formGroup.valid) {
       const password = this.registerForm.get('password')?.value;
       const confirmPassword = this.registerForm.get('confirmPassword')?.value;
@@ -60,6 +63,8 @@ export class RegisterComponent {
             this.alertMessage = "Passwords do not match. Please ensure that both passwords are identical.";
           } else if (errorMessage === 'email already registered') {
             this.alertMessage = "The email address you entered is already registered. Please use a different email address or try logging in."
+          } else {
+            this.alertMessage = "User registration failed. Please check your information and try again later.";
           }
 
           this.isAlertOpen = true;
@@ -77,19 +82,20 @@ export class RegisterComponent {
     this.confirmPasswordFieldType = this.confirmPasswordFieldType === 'password' ? 'text' : 'password';
   }
 
-  checkPasswordStrength(): void {
-    const password = this.registerForm.get('password')?.value;
-
-    if (password && password.length < 8) {
-      this.passwordStrength = 'weak';
-    } else if (password && password.length >= 8 && password.length <= 12) {
-      this.passwordStrength = 'medium';
-    } else {
-      this.passwordStrength = 'strong';
-    }
-  }
-
   closeAlert() {
     this.isAlertOpen = false;
   }
+
+  isConfirmPasswordInvalid(): boolean {
+    const password = this.registerForm.get('password')?.value;
+    const confirmPassword = this.registerForm.get('confirmPassword');
+    return !!((confirmPassword?.value !== password && confirmPassword?.touched) || 
+           (confirmPassword?.invalid && (confirmPassword?.touched || this.isRegisterBtnClicked)));
+}
+
+isConfirmPasswordValid(): boolean {
+    const password = this.registerForm.get('password')?.value;
+    const confirmPassword = this.registerForm.get('confirmPassword');
+    return !!(confirmPassword?.valid && confirmPassword?.value === password && confirmPassword?.touched);
+}
 }
