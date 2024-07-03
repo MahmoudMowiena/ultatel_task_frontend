@@ -167,8 +167,6 @@ export class StudentListComponent implements OnInit {
       firstName: updatedStudent.firstName,
       lastName: updatedStudent.lastName,
       email: updatedStudent.email,
-      // birthDate: updatedStudent.birthDate,
-      birthDate: new Date(updatedStudent.birthDate),
       gender: updatedStudent.gender,
       country: updatedStudent.country
     }
